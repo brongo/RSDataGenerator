@@ -5,9 +5,12 @@
 #include <filesystem>
 #include <algorithm>
 
-// Linux - #include <arpa/inet.h>
+ #ifdef _WIN32
 #include <WinSock2.h>   // Additional dependencies: ws2_32.lib - for ntohl
 #include <Windows.h>
+#else
+#include <arpa/inet.h>
+#endif
 
 namespace RSDataParser
 {

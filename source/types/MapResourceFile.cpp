@@ -7,10 +7,10 @@ namespace RSDataParser
         _FilePath = filename.string();
         _LoadPriority = loadPriority;
 
-        FILE* f;
-        if (fopen_s(&f, _FilePath.c_str(), "rb") != 0)
+        FILE* f = fopen(_FilePath.c_str(), "rb");
+        if (f == NULL)
         {
-            printf("Error: failed to open %s for reading.\n", _FilePath.c_str());
+            fprintf(stderr, "ERROR : MapResourceFile :: Failed to open %s for reading.\n", _FilePath.c_str());
             return;
         }
 

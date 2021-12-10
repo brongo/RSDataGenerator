@@ -5,7 +5,6 @@ namespace RSDataParser
     // Retrieves embedded file data for a specific file entry
     std::vector<uint8_t> ResourceFile::GetEmbeddedFileData(int entryNumber)
     {
-        FILE* f;
         std::vector<uint8_t> embeddedData;
 
         if (_FileEntries.size() < entryNumber)
@@ -20,7 +19,8 @@ namespace RSDataParser
             return embeddedData;
         }
 
-        if (fopen_s(&f, FilePath.c_str(), "rb") != 0)
+        FILE* f = fopen(FilePath.c_str(), "rb"); 
+        if (f == NULL)
         {
             fprintf(stderr, "ERROR : ResourceFile::GetEmbeddedFileData : Failed to open %s for reading.\n", FilePath.c_str());
             return embeddedData;
@@ -42,11 +42,11 @@ namespace RSDataParser
 
     ResourceFile::ResourceFile(const fs::path& filePath, const int loadPriority)
     {
-        this->FilePath = filePath.string();
-        this->LoadPriority = loadPriority;
+        FilePath = filePath.string();
+        LoadPriority = loadPriority;
 
-        FILE* f;
-        if (fopen_s(&f, FilePath.c_str(), "rb") != 0) 
+        FILE* f = fopen(FilePath.c_str(), "rb");    
+        if (f == NULL)
         {
             fprintf(stderr, "ERROR : ResourceFile : Failed to open %s for reading.\n", FilePath.c_str());
             return;

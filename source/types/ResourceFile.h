@@ -28,85 +28,85 @@ namespace RSDataParser
 
     struct ResourceFileHeader // 0x7C bytes
     {
-        /* 0x00 */ uint32_t Magic;
-        /* 0x04 */ uint32_t Version;
+        /* 0x00 */ uint32_t Magic = 0;
+        /* 0x04 */ uint32_t Version = 0;
 
-        /* 0x08 */ uint32_t Unk08;
-        /* 0x0C */ uint32_t Unk0C;
-        /* 0x10 */ uint64_t Unk10;
-        /* 0x18 */ uint64_t Unk18;
+        /* 0x08 */ uint32_t Unk08 = 0;
+        /* 0x0C */ uint32_t Unk0C = 0;
+        /* 0x10 */ uint64_t Unk10 = 0;
+        /* 0x18 */ uint64_t Unk18 = 0;
 
-        /* 0x20 */ uint32_t NumFileEntries;
-        /* 0x24 */ uint32_t NumDependencyEntries;   // resource dependencies list
-        /* 0x28 */ uint32_t NumDependencyIndexes;   // index for resource dependencies
-        /* 0x2C */ uint32_t NumPathStringIndexes;   // index for file name/type strings
+        /* 0x20 */ uint32_t NumFileEntries = 0;
+        /* 0x24 */ uint32_t NumDependencyEntries = 0;   // resource dependencies list
+        /* 0x28 */ uint32_t NumDependencyIndexes = 0;   // index for resource dependencies
+        /* 0x2C */ uint32_t NumPathStringIndexes = 0;   // index for file name/type strings
 
-        /* 0x30 */ uint32_t Unk30;
-        /* 0x34 */ uint32_t NumErrorLogs;           // usually 0
-        /* 0x38 */ uint32_t SizeStrings;            // size of entire strings section, in bytes
-        /* 0x3C */ uint32_t SizeErrorLog;           // usually 0
+        /* 0x30 */ uint32_t Unk30 = 0;
+        /* 0x34 */ uint32_t NumErrorLogs = 0;           // usually 0
+        /* 0x38 */ uint32_t SizeStrings = 0;            // size of entire strings section, in bytes
+        /* 0x3C */ uint32_t SizeErrorLog = 0;           // usually 0
 
-        /* 0x40 */ uint64_t AddrPathStringOffsets;  
-        /* 0x48 */ uint64_t AddrErrorLogs;          // starting offset for error logs (usually none)
-        /* 0x50 */ uint64_t AddrEntries;            // starting offset for ResourceFileEntry structs
-        /* 0x58 */ uint64_t AddrDependencyEntries;  // starting offset for dependency entries
+        /* 0x40 */ uint64_t AddrPathStringOffsets = 0;
+        /* 0x48 */ uint64_t AddrErrorLogs = 0;          // starting offset for error logs (usually none)
+        /* 0x50 */ uint64_t AddrEntries = 0;            // starting offset for ResourceFileEntry structs
+        /* 0x58 */ uint64_t AddrDependencyEntries = 0;  // starting offset for dependency entries
 
-        /* 0x60 */ uint64_t AddrDependencyIndexes;  // starting offset for dependency indexes
-        /* 0x68 */ uint64_t AddrData;               // starting offset for embedded file data
-        /* 0x70 */ uint32_t AddrUnk70;
-        /* 0x74 */ uint64_t AddrEndMarker;          // "IDCL" marks end of resource file metadata, start of embedded files
+        /* 0x60 */ uint64_t AddrDependencyIndexes = 0;  // starting offset for dependency indexes
+        /* 0x68 */ uint64_t AddrData = 0;               // starting offset for embedded file data
+        /* 0x70 */ uint32_t AddrUnk70 = 0;
+        /* 0x74 */ uint64_t AddrEndMarker = 0;          // "IDCL" marks end of resource file metadata, start of embedded files
     };
 
     struct ResourceFileEntry // 0x90 bytes
     {
-        /* 0x00 */ uint64_t PathTuple_OffsetType;   // add this to PathTuple_Index to get idx of the file type - always 0
-        /* 0x08 */ uint64_t PathTuple_OffsetName;   // add this to PathTuple_Index to get idx of the file name - always 1
+        /* 0x00 */ uint64_t PathTuple_OffsetType = 0;   // add this to PathTuple_Index to get idx of the file type - always 0
+        /* 0x08 */ uint64_t PathTuple_OffsetName = 0;   // add this to PathTuple_Index to get idx of the file name - always 1
 
-        /* 0x10 */ uint64_t Unk10Dummy1;
+        /* 0x10 */ uint64_t Unk10Dummy1 = 0;
 
-        /* 0x18 */ uint64_t DependencyIndexNumber;  // index for DependencyEntry
-        /* 0x20 */ uint64_t PathTuple_Index;        // divide by 2 to get the PathTuple array index (or multiply by 8 to get offset, as game does)
+        /* 0x18 */ uint64_t DependencyIndexNumber = 0;  // index for DependencyEntry
+        /* 0x20 */ uint64_t PathTuple_Index = 0;       // divide by 2 to get the PathTuple array index (or multiply by 8 to get offset, as game does)
 
-        /* 0x28 */ uint64_t Unk28Zero0;             
-        /* 0x30 */ uint64_t Unk30Zero1;      
+        /* 0x28 */ uint64_t Unk28Zero0 = 0;
+        /* 0x30 */ uint64_t Unk30Zero1 = 0;
 
-        /* 0x38 */ uint64_t DataOffset;             // offset of embedded file, in bytes
-        /* 0x40 */ uint64_t DataSize;               // size of embedded file, in bytes
-        /* 0x48 */ uint64_t DataSizeUncompressed;   // size of embedded file when decompressed
+        /* 0x38 */ uint64_t DataOffset = 0;             // offset of embedded file, in bytes
+        /* 0x40 */ uint64_t DataSize = 0;               // size of embedded file, in bytes
+        /* 0x48 */ uint64_t DataSizeUncompressed = 0;   // size of embedded file when decompressed
 
-        /* 0x50 */ uint64_t DataCheckSum;           // murmurhash of decompressed data
-        /* 0x58 */ uint64_t Timestamp;              // divide by 1,000,000 for UNIX timestamp
+        /* 0x50 */ uint64_t DataCheckSum = 0;           // murmurhash of decompressed data
+        /* 0x58 */ uint64_t Timestamp = 0;              // divide by 1,000,000 for UNIX timestamp
 
-        /* 0x60 */ uint64_t StreamResourceHash;     // gets converted to .streamdb index, not shown here
-                                                    // conversion is shown in SAMUEL -> FileExporter ->FileExportList::CalculateStreamDBIndex 
-                                                    // https://github.com/brongo/SAMUEL/blob/main/source/core/FileExporter.cpp
+        /* 0x60 */ uint64_t StreamResourceHash = 0;     // gets converted to .streamdb index, not shown here
+                                                        // conversion is shown in SAMUEL -> FileExporter ->FileExportList::CalculateStreamDBIndex 
+                                                        // https://github.com/brongo/SAMUEL/blob/main/source/core/FileExporter.cpp
 
-        /* 0x68 */ uint32_t Version;                // resource type enum,  0x43 = model,  0x21 = image,  0x00 = rs_streamfile
-        /* 0x6C */ uint32_t HavokFlag1;             // 2 if HavokShape or RenderProg,  1 for certain SWF images (rare)
+        /* 0x68 */ uint32_t Version = 0;                // resource type enum,  0x43 = model,  0x21 = image,  0x00 = rs_streamfile
+        /* 0x6C */ uint32_t HavokFlag1 = 0;             // 2 if HavokShape or RenderProg,  1 for certain SWF images (rare)
 
-        /* 0x70 */ uint16_t CompressionMode;        // 0 = uncompressed,  1 = zlib, 2 = kraken,  4 = kraken variant,  5 = leviathan (handled by sub_1408D8D00)
-        /* 0x72 */ uint8_t  HavokFlag2;             // 0x41 for HavokShapes,  varies for RenderProg
-        /* 0x73 */ uint8_t  HavokFlag3;             // 1 for RenderProg
+        /* 0x70 */ uint16_t CompressionMode = 0;        // 0 = uncompressed,  1 = zlib, 2 = kraken,  4 = kraken variant,  5 = leviathan (handled by sub_1408D8D00)
+        /* 0x72 */ uint8_t  HavokFlag2 = 0;             // 0x41 for HavokShapes,  varies for RenderProg
+        /* 0x73 */ uint8_t  HavokFlag3 = 0;             // 1 for RenderProg
 
-        /* 0x74 */ uint32_t Unk74;
-        /* 0x78 */ uint32_t Unk78Zero2;
+        /* 0x74 */ uint32_t Unk74 = 0;
+        /* 0x78 */ uint32_t Unk78Zero2 = 0;
 
-        /* 0x7C */ uint32_t Flags;                  // 8 = supports regen,  1 = required for regen?,  2 = ?? (always set?),  0x10000 = encrypted??
-        /* 0x80 */ uint32_t DesiredCompressionMode; // Desired compression mode,  only used while building?
-        /* 0x84 */ uint16_t NumDependencies;
+        /* 0x7C */ uint32_t Flags = 0;                  // 8 = supports regen,  1 = required for regen?,  2 = ?? (always set?),  0x10000 = encrypted??
+        /* 0x80 */ uint32_t DesiredCompressionMode = 0; // Desired compression mode,  only used while building?
+        /* 0x84 */ uint16_t NumDependencies = 0;
 
-        /* 0x86 */ uint16_t Unk86;                  // sub_1408E8DC0 reads this
-        /* 0x88 */ uint64_t Unk88;
+        /* 0x86 */ uint16_t Unk86 = 0;                  // sub_1408E8DC0 reads this
+        /* 0x88 */ uint64_t Unk88 = 0;
     };
 
     struct FileDependency // 0x20 bytes
     {
-        /* 0x00 */ uint64_t AssetTypeStringIndex;   // index into _stringEntries,  file "type" of the depedency
-        /* 0x08 */ uint64_t FileNameStringIndex;    // Index into _stringEntries,  file "name" of the dependency
-        /* 0x10 */ uint32_t DependencyType;         // 2 = RES_DEP_RESOURCE,  5 = RES_DEP_EMBEDDED_RESOURCE
-        /* 0x14 */ uint32_t Unk14;                  // always 1 ??
-        /* 0x18 */ uint32_t Unk18;                  // some kind of file ID ??
-        /* 0x1C */ uint32_t Unk1C;                  // file ID ??  but often 0x0000 for some file types, like .lwo
+        /* 0x00 */ uint64_t AssetTypeStringIndex = 0;   // index into _stringEntries,  file "type" of the depedency
+        /* 0x08 */ uint64_t FileNameStringIndex = 0;    // Index into _stringEntries,  file "name" of the dependency
+        /* 0x10 */ uint32_t DependencyType = 0;         // 2 = RES_DEP_RESOURCE,  5 = RES_DEP_EMBEDDED_RESOURCE
+        /* 0x14 */ uint32_t Unk14 = 0;                  // always 1 ??
+        /* 0x18 */ uint32_t Unk18 = 0;                  // some kind of file ID ??
+        /* 0x1C */ uint32_t Unk1C = 0;                  // file ID ??  but often 0x0000 for some file types, like .lwo
     };
 
     class ResourceFile

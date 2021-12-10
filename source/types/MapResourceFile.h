@@ -53,26 +53,26 @@ namespace RSDataParser
     
     struct Layer
     {
-        uint32_t strLen;
+        uint32_t strLen = 0;
         std::string layerName;
     };
 
     struct AssetType
     {
-        uint32_t strLen;
+        uint32_t strLen = 0;
         std::string assetTypeName;
     };
 
     struct Asset
     {
-        uint32_t assetTypeIndex;
-        uint32_t strLen;
+        uint32_t assetTypeIndex = 0;
+        uint32_t strLen = 0;
         std::string assetName;
     };
 
     struct Map
     {
-        uint32_t strLen;
+        uint32_t strLen = 0;
         std::string mapName;
     };
 

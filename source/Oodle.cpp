@@ -32,6 +32,7 @@ namespace RSDataParser
         std::string linoodlePath = basePath + "/liblinoodle.so";
         auto oodle = dlopen(linoodlePath.c_str(), RTLD_LAZY);
         OodLZ_Decompress = (OodLZ_DecompressFunc*)dlsym(oodle, "OodleLZ_Decompress");
+        OodLZ_Compress = (OodLZ_CompressFunc*)dlsym, "OodleLZ_Compress");
 
         // Remove oodle dll
         fs::remove(fs::current_path().append("oo2core_8_win64.dll"), ec);

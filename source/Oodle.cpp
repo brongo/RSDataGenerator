@@ -13,13 +13,29 @@ namespace RSDataParser
             return false;
         }
 
+#ifdef _WIN32
+        // Load oodle dll
         auto oodle = LoadLibraryA(pathToOodleDLL.string().c_str());
-
         if (oodle != NULL)
         {
             OodLZ_Decompress = (OodLZ_DecompressFunc*)GetProcAddress(oodle, "OodleLZ_Decompress");
             OodLZ_Compress = (OodLZ_CompressFunc*)GetProcAddress(oodle, "OodleLZ_Compress");
         }
+#else
+        // Copy oodle to current dir to prevent linoodle errors
+        std::error_code ec;
+        fs::copy(oodlePath, fs::current_path(), ec);
+        if (ec.value() != 0)
+            return false;
+
+        // Load linoodle library
+        std::string linoodlePath = basePath + "/liblinoodle.so";
+        auto oodle = dlopen(linoodlePath.c_str(), RTLD_LAZY);
+        OodLZ_Decompress = (OodLZ_DecompressFunc*)dlsym(oodle, "OodleLZ_Decompress");
+
+        // Remove oodle dll
+        fs::remove(fs::current_path().append("oo2core_8_win64.dll"), ec);
+#endif
 
         if (oodle == NULL || OodLZ_Decompress == NULL || OodLZ_Compress == NULL)
             return false;

@@ -3,7 +3,12 @@
 #include <string>
 #include <vector>
 #include <filesystem>
+
+#ifdef _WIN32
 #include <Windows.h>
+#else
+#include <dlfcn.h>
+#endif
 
 #define SAFE_SPACE 64
 

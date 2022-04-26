@@ -182,7 +182,7 @@ namespace RSDataParser
                     MatchedPair matchedPair;
                     matchedPair.mapResourceData = allMapResourceData[possibleMatchIndexes[matchIndex]];
                     matchedPair.resourceData = allResourceData[i];
-                    matchedPair.filenameHash = allMatchParms[i].nameHash;
+                    matchedPair.filenameHash = CalculateHash(allResourceData[i].name);
                     matchedResources.push_back(matchedPair);
 
                     // flag the resource as found
@@ -204,7 +204,7 @@ namespace RSDataParser
                     MatchedPair matchedPair;
                     matchedPair.mapResourceData = allMapResourceData[possibleMatchIndexes[matchIndex]];
                     matchedPair.resourceData = allResourceData[i];
-                    matchedPair.filenameHash = allMatchParms[i].nameHash;
+                    matchedPair.filenameHash = CalculateHash(allResourceData[i].name);
                     matchedResources.push_back(matchedPair);
 
                     // flag the resource as found
